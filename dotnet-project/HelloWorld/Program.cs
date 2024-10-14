@@ -1,0 +1,127 @@
+﻿// See https://aka.ms/new-console-template for more information
+
+using System;
+using System.Data;
+using System.Text.RegularExpressions;
+using Dapper;
+using HelloWorld.Data;
+using HelloWorld.Models;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+
+namespace HelloWorld
+{
+
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        IConfiguration config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        DataContextDapper dapper = new DataContextDapper(config);
+        DataContextEF ef = new DataContextEF(config);
+
+        
+        DateTime rightNow =  dapper.LoadSingleData<DateTime>("SELECT GETDATE()");   // tek bir satırlık sonuç almak için .Query yerine .QuerySingle kullanılır
+
+        //Console.WriteLine(rightNow);
+
+        Computer myComputer = new Computer()
+        {
+            MotherBoard = "Z690",
+            HasWiFi = true,
+            HasLTE = true,
+            ReleaseDate = DateTime.Now,
+            Price = 14.055m,
+            VideoCard = "RTX 2060"
+
+        };
+
+        ef.Add(myComputer);
+        ef.SaveChanges(); //Bu iki satırla string sql kodunu karşılık gelir.
+
+        //@ birden fazla satıra erişime izin verir
+        string sql = @"INSERT INTO TutorialAppSchema.Computer(   
+            MotherBoard , 
+            HasWiFi,
+            HasLTE,
+            ReleaseDate,
+            Price,
+            VideoCard
+            )
+            VALUES('"+ myComputer.MotherBoard
+            + "'," + (myComputer.HasWiFi ? 1 : 0)  // Boolean için 1 veya 0 kullanılır
+            + "," + (myComputer.HasLTE ? 1 : 0)
+            + ",'" + myComputer.ReleaseDate.ToString("yyyy-MM-dd")  // Tarih formatı
+            + "'," + myComputer.Price.ToString(System.Globalization.CultureInfo.InvariantCulture)  // Ondalık sayılar
+            + ",'" + myComputer.VideoCard
+            + "')";
+
+
+
+        // Parametrelerle sorguyu çalıştırın
+        bool result = dapper.ExecuteSql(sql);
+
+
+        //Console.WriteLine(sql);
+        //  int result = dapper.ExecuteSqlWithRows(sql);  
+        //bool result = dapper.ExecuteSql(sql);
+        //Console.WriteLine(result); 
+
+        string sqlSelect = @"SELECT  
+            Computer.computerId,
+            Computer.MotherBoard, 
+            Computer.HasWiFi,
+            Computer.HasLTE,
+            Computer.ReleaseDate,
+            Computer.Price,
+            Computer.VideoCard
+        from TutorialAppSchema.Computer";
+        //Veri tabanındakii tablodan veri çekiyoruz
+
+        IEnumerable <Computer> computers = dapper.LoadData<Computer>(sqlSelect);
+        //Veri tabanından aldığımız değerler Computer sınıfından nesnelere dönüşür.
+
+        Console.WriteLine(" 'computerId' 'Motherboard' , 'HasWiFi' , 'ReleaseDate' , 'Price' , 'VideoCard'");  // Tablonun ilk satırı sütun isimleri olacak. 
+
+
+        foreach(Computer singleComputer in computers)
+        {
+            Console.WriteLine("'"+singleComputer.computerId
+        + "'"+singleComputer.MotherBoard
+        + "','" +singleComputer.HasWiFi
+        + "','" +singleComputer.HasLTE
+        + "','" +singleComputer.ReleaseDate
+        + "','" +singleComputer.Price
+        + "','" +singleComputer.VideoCard
+        +"'");
+        }
+
+        IEnumerable <Computer>? computersEf = ef.Computer.ToList<Computer>();
+        if(computersEf != null)
+        {
+            Console.WriteLine("'Motherboard' , 'HasWiFi' , 'ReleaseDate' , 'Price' , 'VideoCard'");
+            foreach(Computer singleComputer in computersEf)
+            {
+                Console.WriteLine("'"+singleComputer.computerId
+        + "'"+singleComputer.MotherBoard
+        + "','" +singleComputer.HasWiFi
+        + "','" +singleComputer.HasLTE
+        + "','" +singleComputer.ReleaseDate
+        + "','" +singleComputer.Price
+        + "','" +singleComputer.VideoCard
+        +"'");
+            }
+        }
+        
+
+
+}
+}
+}
+
+
+
+    
