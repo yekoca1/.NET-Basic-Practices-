@@ -9,7 +9,8 @@ namespace HelloWorld.Data
     public class DataContextDapper
     {
         //private IConfiguration _config; Buna gerek kalmadı
-        private string _connectionString;
+        private readonly string? _connectionString;  // Nullable olarak işaretlenir
+
         public DataContextDapper (IConfiguration config)
         {
             //_config = config;

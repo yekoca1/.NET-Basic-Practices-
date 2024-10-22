@@ -74,3 +74,4 @@ C:\Users\yunus\dotnet-project\HelloWorld\obj\Debug\net8.0\refint\HelloWorld.dll
 C:\Users\yunus\dotnet-project\HelloWorld\obj\Debug\net8.0\HelloWorld.pdb
 C:\Users\yunus\dotnet-project\HelloWorld\obj\Debug\net8.0\HelloWorld.genruntimeconfig.cache
 C:\Users\yunus\dotnet-project\HelloWorld\obj\Debug\net8.0\ref\HelloWorld.dll
+C:\Users\yunus\dotnet-project\HelloWorld\bin\Debug\net8.0\Newtonsoft.Json.dll

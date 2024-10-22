@@ -1,3 +1,4 @@
+
 INSERT INTO TutorialAppSchema.Computer(   
             MotherBoard , 
             HasWiFi,
@@ -6,4 +7,48 @@ INSERT INTO TutorialAppSchema.Computer(
             Price,
             VideoCard
             )
-            VALUES('Z690',1,1,'2024-10-14',14.055,'RTX 2060')
+            VALUES('Z690',1,1,'2024-10-15',14.055,'RTX 2060')
+
+INSERT INTO TutorialAppSchema.Computer(   
+            MotherBoard , 
+            HasWiFi,
+            HasLTE,
+            ReleaseDate,
+            Price,
+            VideoCard
+            )
+            VALUES('Z690',1,1,'2024-10-15',14.055,'RTX 2060')
+
+
+INSERT INTO TutorialAppSchema.Computer(   
+            MotherBoard , 
+            HasWiFi,
+            HasLTE,
+            ReleaseDate,
+            Price,
+            VideoCard
+            )
+            VALUES('Z690',1,1,'2024-10-15',14.055,'RTX 2060')
+
+
+INSERT INTO TutorialAppSchema.Computer(   
+            MotherBoard , 
+            HasWiFi,
+            HasLTE,
+            ReleaseDate,
+            Price,
+            VideoCard
+            )
+            VALUES('Z690',1,1,'2024-10-15',14.055,'RTX 2060')
+
+
+INSERT INTO TutorialAppSchema.Computer(   
+            MotherBoard , 
+            HasWiFi,
+            HasLTE,
+            ReleaseDate,
+            Price,
+            VideoCard
+            )
+            VALUES('Z690',1,1,'2024-10-15',14.055,'RTX 2060')
+
