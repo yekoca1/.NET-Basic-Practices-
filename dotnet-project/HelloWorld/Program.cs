@@ -83,11 +83,12 @@ internal class Program
         if(computersSystem != null)
         {
             IEnumerable<Computer> compResult =  mapper.Map<IEnumerable<Computer>>(computersSystem);
+            Console.WriteLine("Automapper count : " + compResult.Count());
 
-            foreach(Computer computer in compResult)
-            {
-                Console.WriteLine(computer.MotherBoard);
-            }
+            // foreach(Computer computer in compResult)
+            // {
+            //     Console.WriteLine(computer.MotherBoard);
+            // }
         }
 
         //Console.WriteLine(compJson);
@@ -97,7 +98,16 @@ internal class Program
         //     PropertyNamingPolicy = JsonNamingPolicy.CamelCase // Json dosyasıyla kodumuzdaki isimlendirmeyi eşleştirir. 
         // };
 
-        // IEnumerable<Computer>? computersSystem = System.Text.Json.JsonSerializer.Deserialize<IEnumerable<Computer>>(compJson, options);
+        IEnumerable<Computer>? computersSystemJsonPropertyMapping = System.Text.Json.JsonSerializer.Deserialize<IEnumerable<Computer>>(compJson);
+         if(computersSystemJsonPropertyMapping != null)
+        {
+            Console.WriteLine("Json property count : " + computersSystemJsonPropertyMapping.Count());
+
+            // foreach(Computer computer in computersSystemJsonPropertyMapping)
+            // {
+            //     Console.WriteLine(computer.MotherBoard);
+            // }
+        }
         // IEnumerable<Computer>?  computersNewtonsft= JsonConvert.DeserializeObject<IEnumerable<Computer>>(compJson);  //Newtonjson paketi kullanıldı
 
 
